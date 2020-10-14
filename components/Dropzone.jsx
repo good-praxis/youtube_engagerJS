@@ -1,23 +1,16 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { useDropzone } from 'react-dropzone'
+import { FileContext } from './FileContext'
 
 export default function Dropzone() {
+  const [file, setFile] = useContext(FileContext)
   const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader()
-
-      reader.onabort = () => console.log('file reading was aborted')
-      reader.onerror = () => console.log('file reading has failed')
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const binaryStr = reader.result
-        console.log(binaryStr)
-      }
-      console.log(file)
-      reader.readAsArrayBuffer(file)
+    acceptedFiles.forEach((incoming) => {
+      setFile(incoming)
     })
   }, [])
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
+  console.log(file)
 
   return (
     <div {...getRootProps()}>

@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import FileContext from '../components/FileContext'
 import Dropzone from '../components/Dropzone'
 
 export default function Home() {
@@ -21,7 +22,9 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <Dropzone />
+          <FileContext>
+            <Dropzone />
+          </FileContext>
         </div>
       </main>
 
